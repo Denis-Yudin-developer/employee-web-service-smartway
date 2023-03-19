@@ -131,11 +131,11 @@ func (r *EmployeePostgres) IsEmployeePresent(employeeId int) bool {
 func (r *EmployeePostgres) Update(updatedEmployee model.UpdateEmployee, employeeId int) error {
 	var result []interface{}
 
-	result = append(result, updatedEmployee.Name)
-	result = append(result, updatedEmployee.Surname)
-	result = append(result, updatedEmployee.Phone)
-	result = append(result, updatedEmployee.CompanyId)
-	result = append(result, employeeId)
+	result = append(result, updatedEmployee.Name,
+		updatedEmployee.Surname,
+		updatedEmployee.Phone,
+		updatedEmployee.CompanyId,
+		employeeId)
 
 	_, err := r.pg.dot.Exec(r.pg.db, updateEmployee, result...)
 

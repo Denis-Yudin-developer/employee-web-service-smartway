@@ -42,9 +42,7 @@ func (r *DepartmentPostgres) Create(department model.Department, employeeId int)
 func (r *DepartmentPostgres) Update(updatedDepartment model.UpdateDepartment, employeeId int) error {
 	var result []interface{}
 
-	result = append(result, updatedDepartment.Name)
-	result = append(result, updatedDepartment.Phone)
-	result = append(result, employeeId)
+	result = append(result, updatedDepartment.Name, updatedDepartment.Phone, employeeId)
 
 	_, err := r.pg.dot.Exec(r.pg.db, updateDepartmentByUserId, result...)
 	if err != nil {

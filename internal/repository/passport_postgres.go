@@ -42,9 +42,9 @@ func (r *PassportPostgres) Create(passport model.Passport, employeeId int) error
 func (r *PassportPostgres) Update(updatedPassport model.UpdatePassport, employeeId int) error {
 	var result []interface{}
 
-	result = append(result, updatedPassport.PassportType)
-	result = append(result, updatedPassport.PassportNumber)
-	result = append(result, employeeId)
+	result = append(result, updatedPassport.PassportType,
+		updatedPassport.PassportNumber,
+		employeeId)
 
 	_, err := r.pg.dot.Exec(r.pg.db, updatePassportByUserId, result...)
 	if err != nil {
