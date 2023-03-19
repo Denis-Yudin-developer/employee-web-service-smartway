@@ -28,7 +28,7 @@ func Validate(e Employee) error {
 	if e.Surname == "" {
 		return fmt.Errorf("НЕОБХОДИМО УКАЗАТЬ ФАМИЛИЮ ПРИ СОЗДАНИИ РАБОТНИКА")
 	}
-	// TODO сделать валидацию телефона по номеру?
+
 	if e.Phone == "" {
 		return fmt.Errorf("НЕОБХОДИМО УКАЗАТЬ ТЕЛЕФОН ПРИ СОЗДАНИИ РАБОТНИКА")
 	}

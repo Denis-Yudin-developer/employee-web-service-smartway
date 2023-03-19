@@ -18,7 +18,7 @@ func main() {
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error initialization config: %s", err.Error())
 	}
-	// TODO правильно я все сделал с паролем?
+
 	pg, err := repository.NewPostgresDB(repository.Config{
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
