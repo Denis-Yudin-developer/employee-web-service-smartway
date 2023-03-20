@@ -46,8 +46,8 @@ func (r *EmployeePostgres) GetById(id int) (model.Employee, error) {
 	panic("implement me")
 }
 
-func (r *EmployeePostgres) GetAllByCompany(companyId int) ([]model.Employee, error) {
-	employees := make([]model.Employee, 0)
+func (r *EmployeePostgres) GetAllByCompany(companyId int) ([]model.EmployeeResponse, error) {
+	employees := make([]model.EmployeeResponse, 0)
 
 	rows, err := r.pg.dot.Query(r.pg.db, findEmployeesByCompanyId, companyId)
 	if err != nil {
@@ -55,32 +55,34 @@ func (r *EmployeePostgres) GetAllByCompany(companyId int) ([]model.Employee, err
 	}
 
 	for rows.Next() {
-		var employee model.Employee
-		var department model.Department
-		var passport model.Passport
-		employee.Department = &department
-		employee.Passport = &passport
+		var employeeResponse model.EmployeeResponse
+		var departmentResponse model.DepartmentResponse
+		var passportResponse model.PassportResponse
+		employeeResponse.Department = &departmentResponse
+		employeeResponse.Passport = &passportResponse
 
-		err = rows.Scan(&employee.Id,
-			&employee.Name,
-			&employee.Surname,
-			&employee.Phone,
-			&employee.CompanyId,
-			&employee.Department.Name,
-			&employee.Department.Phone,
-			&employee.Passport.PassportType,
-			&employee.Passport.PassportType)
+		err = rows.Scan(&employeeResponse.Id,
+			&employeeResponse.Name,
+			&employeeResponse.Surname,
+			&employeeResponse.Phone,
+			&employeeResponse.CompanyId,
+			&employeeResponse.Department.Id,
+			&employeeResponse.Department.Name,
+			&employeeResponse.Department.Phone,
+			&employeeResponse.Passport.Id,
+			&employeeResponse.Passport.PassportType,
+			&employeeResponse.Passport.PassportNumber)
 		if err != nil {
 			return nil, err
 		}
 
-		employees = append(employees, employee)
+		employees = append(employees, employeeResponse)
 	}
 	return employees, nil
 }
 
-func (r *EmployeePostgres) GetAllByDepartment(department string) ([]model.Employee, error) {
-	employees := make([]model.Employee, 0)
+func (r *EmployeePostgres) GetAllByDepartment(department string) ([]model.EmployeeResponse, error) {
+	employees := make([]model.EmployeeResponse, 0)
 
 	rows, err := r.pg.dot.Query(r.pg.db, findEmployeesByDepartment, department)
 	if err != nil {
@@ -88,27 +90,29 @@ func (r *EmployeePostgres) GetAllByDepartment(department string) ([]model.Employ
 	}
 
 	for rows.Next() {
-		var employee model.Employee
-		var department model.Department
-		var passport model.Passport
-		employee.Department = &department
-		employee.Passport = &passport
+		var employeeResponse model.EmployeeResponse
+		var departmentResponse model.DepartmentResponse
+		var passportResponse model.PassportResponse
+		employeeResponse.Department = &departmentResponse
+		employeeResponse.Passport = &passportResponse
 
-		err = rows.Scan(&employee.Id,
-			&employee.Name,
-			&employee.Surname,
-			&employee.Phone,
-			&employee.CompanyId,
-			&employee.Department.Name,
-			&employee.Department.Phone,
-			&employee.Passport.PassportType,
-			&employee.Passport.PassportType)
+		err = rows.Scan(&employeeResponse.Id,
+			&employeeResponse.Name,
+			&employeeResponse.Surname,
+			&employeeResponse.Phone,
+			&employeeResponse.CompanyId,
+			&employeeResponse.Department.Id,
+			&employeeResponse.Department.Name,
+			&employeeResponse.Department.Phone,
+			&employeeResponse.Passport.Id,
+			&employeeResponse.Passport.PassportType,
+			&employeeResponse.Passport.PassportNumber)
 
 		if err != nil {
 			return nil, err
 		}
 
-		employees = append(employees, employee)
+		employees = append(employees, employeeResponse)
 	}
 	return employees, nil
 }

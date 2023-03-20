@@ -41,7 +41,7 @@ func (e *EmployeeService) GetById(id int) (model.Employee, error) {
 	panic("implement me")
 }
 
-func (e *EmployeeService) GetAllByCompany(companyId int) ([]model.Employee, error) {
+func (e *EmployeeService) GetAllByCompany(companyId int) ([]model.EmployeeResponse, error) {
 	employees, err := e.employeeRepository.GetAllByCompany(companyId)
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func (e *EmployeeService) GetAllByCompany(companyId int) ([]model.Employee, erro
 	return employees, nil
 }
 
-func (e *EmployeeService) GetAllByDepartment(department string) ([]model.Employee, error) {
+func (e *EmployeeService) GetAllByDepartment(department string) ([]model.EmployeeResponse, error) {
 	employees, err := e.employeeRepository.GetAllByDepartment(department)
 	if err != nil {
 		return nil, err
@@ -67,11 +67,17 @@ func (e *EmployeeService) Update(updatedEmployee model.UpdateEmployee, employeeI
 		return err
 	}
 	updatedEmployeeDepartment := updatedEmployee.Department
+	if updatedEmployeeDepartment == nil {
+		return nil
+	}
 	err = e.departmentRepository.Update(*updatedEmployeeDepartment, employeeId)
 	if err != nil {
 		return err
 	}
 	updatedEmployeePassport := updatedEmployee.Passport
+	if updatedEmployeePassport == nil {
+		return nil
+	}
 	err = e.passportRepository.Update(*updatedEmployeePassport, employeeId)
 	if err != nil {
 		return err

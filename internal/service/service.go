@@ -9,8 +9,8 @@ type Employee interface {
 	Create(employee model.Employee) (int, error)
 	GetAll() ([]model.Employee, error)
 	GetById(id int) (model.Employee, error)
-	GetAllByCompany(companyId int) ([]model.Employee, error)
-	GetAllByDepartment(department string) ([]model.Employee, error)
+	GetAllByCompany(companyId int) ([]model.EmployeeResponse, error)
+	GetAllByDepartment(department string) ([]model.EmployeeResponse, error)
 	Update(updatedEmployee model.UpdateEmployee, employeeId int) error
 	Delete(id int) error
 }
