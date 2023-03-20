@@ -67,20 +67,18 @@ func (e *EmployeeService) Update(updatedEmployee model.UpdateEmployee, employeeI
 		return err
 	}
 	updatedEmployeeDepartment := updatedEmployee.Department
-	if updatedEmployeeDepartment == nil {
-		return nil
-	}
-	err = e.departmentRepository.Update(*updatedEmployeeDepartment, employeeId)
-	if err != nil {
-		return err
+	if updatedEmployeeDepartment != nil {
+		err = e.departmentRepository.Update(*updatedEmployeeDepartment, employeeId)
+		if err != nil {
+			return err
+		}
 	}
 	updatedEmployeePassport := updatedEmployee.Passport
-	if updatedEmployeePassport == nil {
-		return nil
-	}
-	err = e.passportRepository.Update(*updatedEmployeePassport, employeeId)
-	if err != nil {
-		return err
+	if updatedEmployeePassport != nil {
+		err = e.passportRepository.Update(*updatedEmployeePassport, employeeId)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
