@@ -21,6 +21,16 @@ type UpdateEmployee struct {
 	Department *UpdateDepartment `json:"department"`
 }
 
+type EmployeeResponse struct {
+	Id         int                 `json:"id"`
+	Name       string              `json:"name"`
+	Surname    string              `json:"surname"`
+	Phone      string              `json:"phone"`
+	CompanyId  int                 `json:"company_id"`
+	Passport   *PassportResponse   `json:"passport"`
+	Department *DepartmentResponse `json:"department"`
+}
+
 func Validate(e Employee) error {
 	if e.Name == "" {
 		return fmt.Errorf("НЕОБХОДИМО УКАЗАТЬ ИМЯ ПРИ СОЗДАНИИ РАБОТНИКА")
