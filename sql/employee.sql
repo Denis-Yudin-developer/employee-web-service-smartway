@@ -28,7 +28,8 @@ WHERE id = $2;
 
 -- name: find-employees-by-company-id
 SELECT e.id, e.name, e.surname, e.phone, e.company_id,
-       d.name, d.phone, p.passport_type, p.passport_number
+       d.id, d.name, d.phone,
+       p.id, p.passport_type, p.passport_number
 FROM
     employees as e
     INNER JOIN department d on d.id = e.department_id
@@ -37,7 +38,8 @@ WHERE e.company_id = $1;
 
 -- name: find-employees-by-department
 SELECT e.id, e.name, e.surname, e.phone, e.company_id,
-       d.name, d.phone, p.passport_type, p.passport_number
+       d.id, d.name, d.phone,
+       p.id, p.passport_type, p.passport_number
 FROM
     employees as e
         INNER JOIN department d on d.id = e.department_id
